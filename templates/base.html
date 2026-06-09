@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}VANVID{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ["Syne", "sans-serif"],
+                        body: ["DM Sans", "sans-serif"],
+                    },
+                    colors: {
+                        brand: {
+                            50: "#faf8f5",
+                            100: "#f0e8d5",
+                            400: "#daba61",
+                            500: "#d4af37",
+                            600: "#aa8c2c",
+                        },
+                        dark: {
+                            900: "#0a0a0f",
+                            800: "#111118",
+                            700: "#1a1a24",
+                            600: "#24243a",
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: "DM Sans", sans-serif;
+            background-color: #0a0a0f;
+            color: #f1f1f1;
+        }
+
+        .font-display {
+            font-family: "Syne", sans-serif;
+        }
+
+        /* Scrollbar custom */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #111118;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 99px;
+        }
+
+        /* Glow effect */
+        .glow {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .glow-sm {
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Nav link active indicator */
+        .nav-active {
+            position: relative;
+        }
+
+        .nav-active::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #d4af37;
+            border-radius: 99px;
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+
+<body class="min-h-screen">
+
+    <!-- ===== NAVBAR ===== -->
+    {% if session.get("user") %}
+    <nav class="sticky top-0 z-50 bg-dark-800/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+            <!-- Logo -->
+            <a href="{{ url_for('movie.home') }}"
+                class="font-display text-2xl font-bold tracking-widest select-none">
+                <span class="text-white">VAN</span><span class="text-brand-500">VID</span>
+            </a>
+
+            <!-- Nav Links -->
+            <div class="flex items-center gap-8">
+
+                <!-- Home -->
+                <a href="{{ url_for('movie.home') }}" class="relative text-sm transition-colors duration-200
+                          {% if request.endpoint == 'movie.home' %}
+                              text-brand-400 font-medium nav-active
+                          {% else %}
+                              text-white/50 hover:text-white
+                          {% endif %}">
+                    Home
+                </a>
+
+                <!-- Watchlist -->
+                <a href="{{ url_for('movie.watchlist_page') }}" class="relative text-sm transition-colors duration-200
+                          {% if request.endpoint == 'movie.watchlist_page' %}
+                              text-brand-400 font-medium nav-active
+                          {% else %}
+                              text-white/50 hover:text-white
+                          {% endif %}">
+                    Watchlist
+                </a>
+
+                <!-- Profile -->
+                <a href="{{ url_for('movie.profile') }}" class="relative text-sm transition-colors duration-200
+                          {% if request.endpoint == 'movie.profile' %}
+                              text-brand-400 font-medium nav-active
+                          {% else %}
+                              text-white/50 hover:text-white
+                          {% endif %}">
+                    Profile
+                </a>
+
+                <!-- Avatar -->
+                <a href="{{ url_for('movie.profile') }}"
+                    class="flex items-center gap-2 group ml-2 pl-6 border-l border-white/10">
+                    <img src="{{ session['user']['picture'] }}" alt="avatar" class="w-8 h-8 rounded-full ring-2 ring-white/10
+                                group-hover:ring-brand-500 transition-all duration-200">
+                    <span class="text-sm text-white/60 group-hover:text-white transition-colors">
+                        {{ session['user']['name'].split()[0] }}
+                    </span>
+                </a>
+
+                <!-- Logout -->
+                <a href="{{ url_for('auth.logout') }}"
+                    class="text-xs text-white/25 hover:text-red-400 transition-colors duration-200">
+                    Keluar
+                </a>
+
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+    <!-- ===== FLASH NOTIFICATIONS ===== -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="fixed top-20 right-4 z-50 flex flex-col gap-2" id="flashContainer">
+        {% for category, message in messages %}
+        <div class="flash-msg flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl
+                    text-sm font-medium backdrop-blur-md border
+                    {% if category == 'success' %}
+                        bg-green-500/20 border-green-500/30 text-green-300
+                    {% elif category == 'warning' %}
+                        bg-yellow-500/20 border-yellow-500/30 text-yellow-300
+                    {% else %}
+                        bg-brand-500/20 border-brand-500/30 text-brand-300
+                    {% endif %}">
+            <span>{{ message }}</span>
+            <button onclick="this.parentElement.remove()"
+                class="ml-2 opacity-50 hover:opacity-100 transition-opacity text-lg leading-none">
+                ×
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    <script>
+        setTimeout(() => {
+            document.querySelectorAll(".flash-msg").forEach(el => {
+                el.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+                el.style.opacity = "0";
+                el.style.transform = "translateX(20px)";
+                setTimeout(() => el.remove(), 500);
+            });
+        }, 3000);
+    </script>
+    {% endif %}
+    {% endwith %}
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="max-w-6xl mx-auto px-6 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>
