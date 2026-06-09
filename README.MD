@@ -122,7 +122,3 @@ Proyek ini didistribusikan di bawah lisensi MIT License. Anda diperbolehkan memo
 ### Langkah 3: Push README ke GitHub
 Kembali ke terminal PowerShell Anda, jalankan 3 perintah ringkas ini secara berurutan untuk mengirim file README tersebut ke repositori:
 
-```powershell
-git add README.md
-git commit -m "docs: menambahkan berkas README.md utama"
-git push
