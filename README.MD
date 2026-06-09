@@ -19,7 +19,7 @@ Aplikasi web berbasis Flask untuk mengelola daftar tontonan film (*Movie Watchli
 
 Proyek ini disusun dengan struktur direktori yang bersih dan terorganisir sebagai berikut:
 
-```text
+```
 ├── controllers/
 │   ├── auth_controller.py        # Mengatur logika registrasi, login, & session
 │   ├── movie_controller.py       # Mengatur logika penampilan katalog & detail film
@@ -43,8 +43,10 @@ Proyek ini disusun dengan struktur direktori yang bersih dan terorganisir sebaga
 ├── config.py                     # Konfigurasi sistem dan pengaturan environment
 ├── extensions.py                 # Inisialisasi instansiasi library pihak ketiga
 └── requirements.txt              # Daftar dependensi library Python yang dibutuhkan
+```
 
-⚙️ Prasyarat & Konfigurasi
+
+## ⚙️ Prasyarat & Konfigurasi
 Prasyarat Sistem
 Sebelum menjalankan proyek ini, pastikan perangkat Anda sudah terpasang:
 
@@ -66,7 +68,7 @@ MONGO_URI=mongodb://localhost:27017/movie_watchlist_db
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 
-🛠️ Panduan Instalasi & Cara Menjalankan
+## 🛠️ Panduan Instalasi & Cara Menjalankan
 Ikuti langkah-langkah di bawah ini untuk memasang dan menjalankan aplikasi di lingkungan lokal Anda:
 
 1. Clone Repositori
@@ -114,7 +116,7 @@ Aplikasi ini menggunakan perpaduan antara web views dan endpoint penanganan data
 | `/watchlist/add/<movie_id>` | `POST` | Menambahkan film ke dalam daftar tontonan | User (Login) |
 | `/watchlist/delete/<movie_id>` | `POST / DELETE` | Menghapus film dari daftar tontonan | User (Login) |
 
-📝 Lisensi
+## 📝 Lisensi
 Proyek ini didistribusikan di bawah lisensi MIT License. Anda diperbolehkan memodifikasi, mendistribusikan, dan menggunakan kode ini untuk keperluan personal maupun komersial.
 
 
