@@ -117,8 +117,4 @@ Aplikasi ini menggunakan perpaduan antara web views dan endpoint penanganan data
 📝 Lisensi
 Proyek ini didistribusikan di bawah lisensi MIT License. Anda diperbolehkan memodifikasi, mendistribusikan, dan menggunakan kode ini untuk keperluan personal maupun komersial.
 
----
-
-### Langkah 3: Push README ke GitHub
-Kembali ke terminal PowerShell Anda, jalankan 3 perintah ringkas ini secara berurutan untuk mengirim file README tersebut ke repositori:
 
